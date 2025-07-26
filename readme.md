@@ -70,8 +70,8 @@ Follow these steps to set up and run the project locally.
 ### 1. Clone this Repository
 
 ```Bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/RahulAnand2077/Q-Ket-Agent
+cd Q-Ket-Agent
 ```
 
 ### 2. Create and Activate Virtual Environment
