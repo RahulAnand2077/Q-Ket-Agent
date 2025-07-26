@@ -16,7 +16,7 @@ def codebase_retriever(query : str) -> str:
     """
     print(f"-- Using codebase_retriever with query: {query} --")
 
-    async def _retriever():
+    async def _retriever():    
         embedding_model = GoogleGenerativeAIEmbeddings(model=EMBEDDING_MODEL)
         vector_store = Chroma(
             persist_directory=DB_PATH,
@@ -54,7 +54,7 @@ def code_writer(task_description : str, code_context : str)-> str:
     """
     print(f"Using code_writer for task: {task_description}")
 
-    writer_llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro",temperature=0.1)
+    writer_llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro",temperature=0.3)
 
     template="""
     You are an expert Qiskit programmer. Your task is to write a single, complete, and runnable

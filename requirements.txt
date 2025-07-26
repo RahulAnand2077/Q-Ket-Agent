@@ -1,0 +1,11 @@
+streamlit
+langchain
+langgraph
+langchain_community
+langchain_core
+langchain_google_genai
+langchain_chroma
+langchain_text_splitters
+dotenv
+asyncio
+fastapi
