@@ -124,7 +124,7 @@ python ingest.py
 To start the server:
 
 ``` Bash
-uvicorn server:app --reload
+uvicorn backend:app --reload
 ```
 
 ### 9. Run Streamlit frontend
