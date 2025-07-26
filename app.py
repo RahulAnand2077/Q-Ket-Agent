@@ -2,7 +2,10 @@ import streamlit as st
 import requests 
 import re
 
+# Uncomment this line for running locally
 # API_URL = "http://127.0.0.1:8000/invoke_agent"
+
+# Comment this line for running locally
 API_URL = "https://q-ket-agent.onrender.com"
 
 st.set_page_config(
@@ -35,7 +38,11 @@ if prompt := st.chat_input(placeholder="Ask a question about the Qiskit codebase
     with st.chat_message("assistant"):
         with st.spinner("The agent is thinking..."):
             try:
-                response = requests.post(API_URL, json={"message": prompt})
+                # For running locally
+                # response = requests.post(API_URL, json={"message": prompt})
+                
+                # Comment this line for running locally
+                response = requests.post(API_URL+"/invoke_agent", json={"message": prompt})
                 response.raise_for_status()  
                 
                 agent_reply = response.json()["reply"]
