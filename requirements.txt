@@ -8,7 +8,6 @@ langchain_text_splitters
 google-generativeai
 google-auth
 google-api-python-client
-google-cloud-sdk
 dotenv
 asyncio
 fastapi

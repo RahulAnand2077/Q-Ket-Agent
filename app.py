@@ -2,7 +2,8 @@ import streamlit as st
 import requests 
 import re
 
-API_URL = "http://127.0.0.1:8000/invoke_agent"
+# API_URL = "http://127.0.0.1:8000/invoke_agent"
+API_URL = "https://q-ket-agent.onrender.com"
 
 st.set_page_config(
     page_title="Qiskit AI Assistant",
