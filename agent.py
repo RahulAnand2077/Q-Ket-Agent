@@ -11,7 +11,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 class AgentState(TypedDict):
     messages : Annotated[list,operator.add]
 
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash",temperature=0.3)
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash",temperature=0.1)
 tools = [codebase_retriever,code_writer]
 tool_exe = ToolNode(tools)
 

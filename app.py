@@ -38,7 +38,7 @@ if prompt := st.chat_input(placeholder="Ask a question about the Qiskit codebase
     with st.chat_message("assistant"):
         with st.spinner("The agent is thinking..."):
             try:
-                # For running locally
+                # Uncomment this line for running locally
                 # response = requests.post(API_URL, json={"message": prompt})
                 
                 # Comment this line for running locally

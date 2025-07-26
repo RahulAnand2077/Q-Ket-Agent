@@ -126,7 +126,7 @@ python ingest.py
 To start the server:
 
 ``` Bash
-uvicorn backend:app --reload
+uvicorn backend:app --reload --host 0.0.0.0 --port $PORT
 ```
 
 ### 9. Run Streamlit frontend
@@ -135,14 +135,4 @@ To start the frontend:
 ``` Bash
 streamlit run app.py
 ```
-<!-- 
-## 🔮 Future Work
-[ ] Develop a user-friendly web interface using Streamlit.
 
-[ ] Expose the agent's capabilities via a FastAPI backend.
-
-[ ] Implement a re-ranking step after retrieval to improve search accuracy. 
--->
-
-<!-- 📄 License
-This project is licensed under the MIT License. See the LICENSE file for details. -->
