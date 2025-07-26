@@ -4,3 +4,4 @@
 /__pycache__/
 /qiskit_repo_data
 /chroma_db
+/main.py
