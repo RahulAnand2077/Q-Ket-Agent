@@ -1,12 +1,11 @@
-import os
-from dotenv import load_dotenv
+# import os
+# from dotenv import load_dotenv
 
-load_dotenv()
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+# load_dotenv()
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage
 from agent import create_graph
 from contextlib import asynccontextmanager
