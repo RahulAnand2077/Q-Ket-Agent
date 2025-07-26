@@ -67,7 +67,7 @@ graph TD
 ## ⚙️ Setup and Installation
 Follow these steps to set up and run the project locally.
 
-### 1. Clone the Repository
+### 1. Clone this Repository
 
 ```Bash
 git clone https://github.com/your-username/your-repo-name.git
@@ -104,7 +104,7 @@ This project requires a Google Cloud Service Account to use the Gemini API.
 ### 5. Create .env File
 Create a file named .env in the project root and add the following line:
 
-    GOOGLE_APPLICATION_CREDENTIALS="service-account-key.json"
+    GOOGLE_APPLICATION_CREDENTIALS=./service-account-key.json
 
 ### 6. Prepare the Codebase for Indexing
 Download or clone the Qiskit source code into the project directory.
@@ -119,13 +119,20 @@ Run the ingestion script to embed the Qiskit codebase and create the local Chrom
 ``` Bash
 python ingest.py
 ```
-## 🚀 Usage
-To start the agent, run the main.py script from your terminal:
+
+### 8. Run FastAPI server
+To start the server:
 
 ``` Bash
-python main.py
+uvicorn server:app --reload
 ```
 
+### 9. Run Streamlit frontend
+To start the frontend:
+
+``` Bash
+streamlit run app.py
+```
 <!-- 
 ## 🔮 Future Work
 [ ] Develop a user-friendly web interface using Streamlit.
