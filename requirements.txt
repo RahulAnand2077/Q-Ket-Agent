@@ -1,4 +1,3 @@
-streamlit
 langchain
 langgraph
 langchain_community
@@ -6,6 +5,13 @@ langchain_core
 langchain_google_genai
 langchain_chroma
 langchain_text_splitters
+google-generativeai
+google-auth
+google-api-python-client
+google-cloud-sdk
 dotenv
 asyncio
 fastapi
+streamlit
+uvicorn[standard]
+python-dotenv
