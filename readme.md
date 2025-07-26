@@ -48,15 +48,17 @@ graph TD
     D --> B;
 ```
 ## 🛠️ Tech Stack
-- *LLM Framework: LangChain & LangGraph*
+- 🧠 *LangChain & LangGraph*
 
-- *LLM: Google Gemini*
+- 👾 *Google Gemini*
 
-- *Vector Database: ChromaDB*
+- 📚 *ChromaDB : Vector Database*
 
-- *Embeddings: Google embedding-001*
+- 🔢 *Google embedding-001*
 
-- *Core: Python*
+- 📄 *Tree-sitter : Code & Document Handling*
+
+- 🐍 *Python*
 
 ## ⚙️ Setup and Installation
 Follow these steps to set up and run the project locally.
@@ -89,7 +91,7 @@ pip install -r requirements.txt
 ### 4. Set Up Google Cloud Authentication
 This project requires a Google Cloud Service Account to use the Gemini API.
 
-- Follow the official guide to create a service account and download the JSON key.
+- Follow the official guide to [create a service account and download the JSON key](https://cloud.google.com/docs/authentication/client-libraries).
 
 - Grant the "Vertex AI User" role to the service account.
 
