@@ -2,8 +2,6 @@ from typing import TypedDict,Annotated
 from langchain_core.prompts import ChatPromptTemplate,MessagesPlaceholder
 from langgraph.graph import StateGraph,END
 from langgraph.prebuilt import ToolNode
-# from langchain.agents import create_tool_calling_agent
-# from langchain_core.messages import ToolMessage
 import operator
 
 from tools import codebase_retriever,code_writer
@@ -19,11 +17,13 @@ tools = [codebase_retriever,code_writer]
 tool_exe = ToolNode(tools)
 
 prompt = ChatPromptTemplate.from_messages([
-    ("system", """You are a powerful Qiskit assistant that can both answer questions and write code.
-    You will be given a conversation history and a new user question.
-    Based on this, you must decide whether to call a tool or respond to the user.
-    If you need more information to answer, use a tool.
-    If you have enough information, provide a final, comprehensive answer."""),
+    ("system", """You are an expert Qiskit software developer assistant. Your primary goal is to provide accurate, helpful answers with code examples.
+
+BEHAVIOR RULES:
+- **Use Conversation History:** You MUST use the entire conversation history available in the 'messages' to understand the user's full request and context. If a user asks for "it" or an "example," refer to the previous messages to understand the topic.
+- **Proactive Tool Use:** If a question requires knowledge about the codebase (classes, functions, implementation details), your first step should always be to use the `codebase_retriever` tool.
+- **Handle Tool Errors:** If a tool returns an error message, inform the user about the specific error. Then, if you can, try to answer the question using your general knowledge, but state clearly that you are doing so because the tool failed.
+- **Be Direct:** Do not get stuck in clarification loops. If a request is slightly ambiguous, make a reasonable assumption and provide an answer. For example, if asked for a "QAOA example," assume the user wants a basic implementation and use your tools to provide one."""),
     MessagesPlaceholder(variable_name="messages"),
 ])
 

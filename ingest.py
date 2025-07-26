@@ -1,9 +1,13 @@
+from dotenv import load_dotenv
+load_dotenv()
 import os
 import git
 from langchain_community.document_loaders import DirectoryLoader,TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter,Language
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
+from langchain.document_loaders.generic import GenericLoader
+from langchain.document_loaders.parsers import LanguageParser
 from dotenv import load_dotenv
 
 REPO_PATH = "qiskit_repo_data"
@@ -42,6 +46,15 @@ def ingest_codebase():
     python_splitter = RecursiveCharacterTextSplitter.from_language(
         language=Language.PYTHON,chunk_size=2000,chunk_overlap=200
     )
+
+    loader = GenericLoader.from_filesystem(
+        REPO_PATH,
+        glob="**/*.py",
+        suffixes=[".py"],
+        parser=LanguageParser(language=Language.PYTHON, parser_threshold=500),
+    )
+
+    docs = loader.load()
     texts = python_splitter.split_documents(docs)
     print(f"Split into {len(texts)} chunks.")
 

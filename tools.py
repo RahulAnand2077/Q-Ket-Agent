@@ -1,6 +1,7 @@
+import asyncio
 from langchain_core.tools import tool
 from langchain_google_genai import GoogleGenerativeAIEmbeddings,ChatGoogleGenerativeAI
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain_core.prompts import PromptTemplate
 
 DB_PATH = "chroma_db"
@@ -13,26 +14,36 @@ def codebase_retriever(query : str) -> str:
     Use this tool to answer any questions about Qiskit's implementation,
     code structure, or functionality.
     """
-    print(f"-- Using codebase_retriever with query:\n {query} --")
+    print(f"-- Using codebase_retriever with query: {query} --")
 
-    embedding_model = GoogleGenerativeAIEmbeddings(model=EMBEDDING_MODEL)
-    vector_store = Chroma(
-        persist_directory=DB_PATH,
-        embedding_function=embedding_model
-    )
+    async def _retriever():
+        embedding_model = GoogleGenerativeAIEmbeddings(model=EMBEDDING_MODEL)
+        vector_store = Chroma(
+            persist_directory=DB_PATH,
+            embedding_function=embedding_model
+        )
 
-    retriever = vector_store.as_retriever(search_kwargs={"k":5})
-    retrieved_docs = retriever.invoke(query)
+        retriever = vector_store.as_retriever(search_kwargs={"k":5})
+        retrieved_docs = await retriever.ainvoke(query)
 
-    context_parts = []
-    for i,doc in enumerate(retrieved_docs):
-        source = doc.metadata.get("source","Unknown")
-        content = doc.page_content
-        context_parts.append(f"-- Context Snippet {i+1} from {source} --\n{content}")
+        if not retrieved_docs:
+            return "No relevant documents found in the codebase for this query."
 
-    context = "\n\n".join(context_parts)
+        context_parts = []
+        for i,doc in enumerate(retrieved_docs):
+            source = doc.metadata.get("source","Unknown")
+            content = doc.page_content
+            context_parts.append(f"-- Context Snippet {i+1} from {source} --\n{content}")
 
-    return f"Retrieved context:\n{context}"
+        context = "\n\n".join(context_parts)
+        return f"Retrieved context:\n{context}"
+    
+    try:
+        return asyncio.run(_retriever())
+    
+    except Exception as e:
+        print(f"ERROR in codebasee_retriever: {e}")
+        return f"An error occurred while trying to retrieve from the codebase: {e}"
 
 @tool
 def code_writer(task_description : str, code_context : str)-> str:

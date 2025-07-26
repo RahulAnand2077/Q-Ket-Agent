@@ -18,9 +18,15 @@ def main():
         inputs = [HumanMessage(content=user_input)]
 
         for output in app.stream({"messages" : inputs}):
-            if "agent" in output:        
-                response = output["agent"]["messages"][-1]
-                print(f"Agent :\n{response.content}")
+            if "agent" in output:
+                final_answer = output["agent"]["messages"][-1]
+                response_content = final_answer.content
+                if isinstance(response_content, list):
+                    full_response = "".join(part for part in response_content)
+                else:
+                    full_response = response_content
+                
+                print(f"\nAgent:\n{full_response}\n")
 
 if __name__ == "__main__":
     main()
