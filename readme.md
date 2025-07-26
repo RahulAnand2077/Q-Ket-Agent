@@ -115,6 +115,7 @@ git clone https://github.com/Qiskit/qiskit.git
 
 ### 7. Create the Vector Database
 Change the REPO_PATH to the path of cloned Qiskit repo. 
+
 Run the ingestion script to embed the Qiskit codebase and create the local ChromaDB database.
 
 ``` Bash
