@@ -1,0 +1,6 @@
+/venv
+/.env
+/service-account-key.json
+/__pycache__/
+/qiskit_repo_data
+/chroma_db
