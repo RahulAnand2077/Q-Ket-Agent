@@ -27,17 +27,17 @@ The agent is built using LangGraph, which implements the logic as a stateful gra
 
 The core flow is as follows:
 
-    1. The user's input is added to the graph's state.
+1. The user's input is added to the graph's state.
 
-    2. The Agent Node is called. It uses an LLM (Gemini) to decide the next step: either respond directly to the user or call a tool.
+2. The Agent Node is called. It uses an LLM (Gemini) to decide the next step: either respond directly to the user or call a tool.
 
-    3. A Conditional Edge routes the flow.
-        If a tool is needed, it goes to the *Action Node*.
-        If no tool is needed, it goes to the *End*.
+3. A Conditional Edge routes the flow.
+    If a tool is needed, it goes to the *Action Node*.
+    If no tool is needed, it goes to the *End*.
 
-    4. The Action Node executes the requested tool (e.g., codebase_retriever or code_writer) and adds the output to the state.
+4. The Action Node executes the requested tool (e.g., codebase_retriever or code_writer) and adds the output to the state.
 
-    5. The flow loops back to the Agent Node, which now has the tool's output as context to formulate its final answer.
+5. The flow loops back to the Agent Node, which now has the tool's output as context to formulate its final answer.
 
 ```Bash
 graph TD
@@ -48,43 +48,43 @@ graph TD
     D --> B;
 ```
 ## 🛠️ Tech Stack
-LLM Framework: LangChain & LangGraph
+- *LLM Framework: LangChain & LangGraph*
 
-LLM: Google Gemini Pro
+- *LLM: Google Gemini*
 
-Vector Database: ChromaDB
+- *Vector Database: ChromaDB*
 
-Embeddings: Google embedding-001
+- *Embeddings: Google embedding-001*
 
-Core: Python
+- *Core: Python*
 
 ## ⚙️ Setup and Installation
 Follow these steps to set up and run the project locally.
 
 ### 1. Clone the Repository
 
-    ```Bash
-    git clone https://github.com/your-username/your-repo-name.git
-    cd your-repo-name
-    ```
+```Bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+```
 
 ### 2. Create and Activate Virtual Environment
 
-    ```Bash
-    # Windows
-    python -m venv venv
-    .\venv\Scripts\Activate
+```Bash
+# Windows
+python -m venv venv
+.\venv\Scripts\Activate
 
-    # macOS / Linux
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
+# macOS / Linux
+python3 -m venv venv
+source venv/bin/activate
+```
 
 ### 3. Install Dependencies
 
-    ```Bash
-    pip install -r requirements.txt
-    ```
+```Bash
+pip install -r requirements.txt
+```
 
 ### 4. Set Up Google Cloud Authentication
 This project requires a Google Cloud Service Account to use the Gemini API.
@@ -103,22 +103,22 @@ Create a file named .env in the project root and add the following line:
 ### 6. Prepare the Codebase for Indexing
 Download or clone the Qiskit source code into the project directory.
 
-    ```Bash
-    git clone https://github.com/Qiskit/qiskit.git
-    ```
+```Bash
+git clone https://github.com/Qiskit/qiskit.git
+```
 
 ### 7. Create the Vector Database
 Run the ingestion script to embed the Qiskit codebase and create the local ChromaDB database.
 
-    ``` Bash
-    python ingest.py
-    ```
+``` Bash
+python ingest.py
+```
 ## 🚀 Usage
 To start the agent, run the main.py script from your terminal:
 
-    ``` Bash
-    python main.py
-    ```
+``` Bash
+python main.py
+```
 
 ## 🔮 Future Work
 [ ] Develop a user-friendly web interface using Streamlit.
