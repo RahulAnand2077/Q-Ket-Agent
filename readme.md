@@ -96,15 +96,17 @@ pip install -r requirements.txt
 
 ### 4. Configure API Keys & Credentials
 - Set Up Google Cloud Authentication
-This project requires a Google Cloud Service Account to use the Gemini API.
 
-- Follow the official guide to [create a service account and download the JSON key](https://cloud.google.com/docs/authentication/client-libraries).
+    This project requires a Google Cloud Service Account to use the Gemini API.
 
-- Grant the "Vertex AI User" role to the service account.
+    - Follow the official guide to [create a service account and download the JSON key](https://cloud.google.com/docs/authentication/client-libraries).
 
-- Place the downloaded service-account-key.json file in the root of the project directory.
+    - Grant the "Vertex AI User" role to the service account.
+
+    - Place the downloaded service-account-key.json file in the root of the project directory.
 
 - Tavily Search:
+
 Get a free API key from tavily.com.
 
 ### 5. Create .env File
