@@ -107,7 +107,7 @@ pip install -r requirements.txt
 
 - Tavily Search:
 
-    Get a free API key from tavily.com.
+    Get a free API key from [tavily.com](https://www.tavily.com/).
 
 ### 5. Create .env File
 Create a file named .env in the project root and add the following line:
