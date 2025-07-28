@@ -5,6 +5,7 @@ langchain_core
 langchain_google_genai
 langchain_chroma
 langchain_text_splitters
+langchain_tavily
 google-generativeai
 google-auth
 google-api-python-client
