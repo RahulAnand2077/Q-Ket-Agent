@@ -146,19 +146,13 @@ streamlit run app.py
 ```
 
 ## 📜 Project Structure
-
+```bash
 ├── app.py              # The Streamlit frontend application
-
 ├── backend.py          # The FastAPI backend server
-
 ├── agent.py            # LangGraph agent and graph definition
-
 ├── tools.py            # Custom tools for the agent (RAG, web search, etc.)
-
 ├── ingest.py           # Script to process and embed the Qiskit codebase
-
 ├── requirements.txt    # Project dependencies
-
 ├── .env                # File for API keys (not committed to git)
-
 └── qiskit_code/        # Local clone of the Qiskit repository (ignored by git)
+```
