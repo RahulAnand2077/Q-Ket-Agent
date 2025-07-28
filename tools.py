@@ -3,6 +3,8 @@ from langchain_core.tools import tool
 from langchain_google_genai import GoogleGenerativeAIEmbeddings,ChatGoogleGenerativeAI
 from langchain_chroma import Chroma
 from langchain_core.prompts import PromptTemplate
+from langchain_community.document_loaders import WebBaseLoader
+from langchain_tavily import TavilySearch
 
 DB_PATH = "chroma_db"
 EMBEDDING_MODEL = "models/embedding-001"
@@ -82,3 +84,34 @@ def code_writer(task_description : str, code_context : str)-> str:
     })
 
     return generated_code.content
+
+@tool
+def web_page_reader(url: str) -> str:
+    """
+    Reads the full text content of a given web page URL.
+    Use this tool ONLY after you have a specific URL from a search tool.
+    """
+    print(f"-- Using web_page_reader for URL: {url} --")
+    try:
+        loader = WebBaseLoader(url)
+        docs = loader.load()
+        # Join the document contents into a single string
+        content = "\n\n".join([doc.page_content for doc in docs])
+        return content
+    except Exception as e:
+        print(f"ERROR in web_page_reader: {e}")
+        return f"An error occurred while trying to read the page: {e}"
+
+@tool
+def qiskit_docs_search(query: str) -> str:
+    """
+    Searches for the official Qiskit documentation page for a specific topic, class, or function.
+    Use this tool first to find the correct URL before you can read its content.
+    Returns a list of search results with URLs.
+    """
+    print(f"-- Using qiskit_docs_search with query: {query} --")
+    # We use the Tavily search tool, which you've set up before.
+    # We add "site:quantum.cloud.ibm.com/docs" to restrict the search to the docs.
+    search = TavilySearch(max_results=3)
+    results = search.invoke(f"site:quantum.cloud.ibm.com/docs {query}")
+    return results

@@ -6,7 +6,7 @@
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage,AIMessage
 from agent import create_graph
 from contextlib import asynccontextmanager
 
@@ -17,7 +17,7 @@ async def lifespan(app: FastAPI):
     """
     Handles startup tasks: loads environment variables and initializes the agent graph.
     """
-    global agent_graph
+    global agent_graph,memory
     print("Application startup: Loading .env and creating agent graph...")
     agent_graph = create_graph()
     print("Agent graph created successfully.")
@@ -30,8 +30,13 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
 class AgentRequest(BaseModel):
-    message : str
+    history: list[ChatMessage]
 
 class AgentResponse(BaseModel):
     reply : str
@@ -42,17 +47,23 @@ async def invoke_agent(request : AgentRequest):
     """
     Receives a user message, invokes the LangGraph agent, and returns the final response.
     """
-    inputs = [HumanMessage(content=request.message)]
+    inputs = []
+    for msg in request.history:
+        if msg.role == "user":
+            inputs.append(HumanMessage(content=msg.content))
+        elif msg.role == "assistant":
+            inputs.append(AIMessage(content=msg.content))
+
     full_response = ""
-    for output in agent_graph.stream({"messages" : inputs}):
+    async for output in agent_graph.astream({"messages":inputs}):
         if "agent" in output:
             final_answer = output["agent"]["messages"][-1]
             response_content = final_answer.content
             if isinstance(response_content, list):
-                full_response = "".join(part for part in response_content)
+                full_response = "".join(str(part) for part in response_content)
             else:
-                full_response = response_content
-            
+                full_response = str(response_content)
+
     return {"reply":full_response}
 
 @app.get("/")

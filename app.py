@@ -38,11 +38,13 @@ if prompt := st.chat_input(placeholder="Ask a question about the Qiskit codebase
     with st.chat_message("assistant"):
         with st.spinner("The agent is thinking..."):
             try:
+                payload = {"history": st.session_state.messages}
+
                 # Uncomment this line for running locally
-                # response = requests.post(API_URL, json={"message": prompt})
+                # response = requests.post(API_URL, json=payload)
                 
                 # Comment this line for running locally
-                response = requests.post(API_URL+"/invoke_agent", json={"message": prompt})
+                response = requests.post(API_URL+"/invoke_agent", json=payload)
                 response.raise_for_status()  
                 
                 agent_reply = response.json()["reply"]
