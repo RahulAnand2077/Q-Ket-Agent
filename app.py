@@ -14,7 +14,7 @@ st.set_page_config(
     layout="wide"
 )
 st.title("🤖 Qiskit AI Agent")
-st.caption("Your AI-powered pair programmer for the Qiskit codebase.")
+st.caption("Your AI-powered pair programmer for the Qiskit SDK.")
 
 def format_agent_response(text: str) -> str:
     """Cleans up the agent's response for proper markdown rendering."""
